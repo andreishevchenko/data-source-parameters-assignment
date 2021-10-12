@@ -22,7 +22,7 @@ create table data_source_parameters(
     parameter_id varchar(36),
     primary key(data_source_id, parameter_id),
     foreign key(data_source_id) references data_sources(id),
-    foreign key references(parent_id) parameters(id)
+    foreign key(parameter_id) references parameters(id)
 );
 
 -- From example I've made an assumption that parameter can have relation to more than one data source.

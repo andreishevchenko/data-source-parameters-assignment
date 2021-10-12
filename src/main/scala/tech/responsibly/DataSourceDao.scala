@@ -38,8 +38,7 @@ class DataSourceDao(jdbcDataSource: javax.sql.DataSource)(implicit ec: Execution
       FROM data_sources ds
       LEFT JOIN data_source_parameters dsp ON (ds.id = dsp.data_source_id)
       LEFT JOIN parameters p ON (dsp.parameter_id = p.id)
-      LEFT JOIN
-      WHERE ds.id = $id
+      WHERE ds.id = '$id'
       """.as(dataSourceRowParser.*)
     }.map(rows =>
       rows.groupBy{
@@ -68,7 +67,7 @@ class DataSourceDao(jdbcDataSource: javax.sql.DataSource)(implicit ec: Execution
       from
         categories
       where
-        id = $id
+        id = '$id'
       union all
       select
         c.id,
@@ -89,6 +88,7 @@ class DataSourceDao(jdbcDataSource: javax.sql.DataSource)(implicit ec: Execution
 
   private def withConnection[A](f: Connection => A): Future[A] = Future {
     val connection = jdbcDataSource.getConnection
+
     try f(connection)
     finally connection.close()
   }
