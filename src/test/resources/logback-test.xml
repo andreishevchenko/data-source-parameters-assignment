@@ -1,0 +1,18 @@
+<configuration debug="false"> 
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="akka.event.slf4j.Slf4jLogger" level="ERROR"/>
+  <logger name="org.testcontainers" level="ERROR"/>
+  <logger name="com.zaxxer.hikari" level="ERROR"/>
+
+  <variable name="TEST_LOG_LEVEL" value="${TEST_LOG_LEVEL:-OFF}" />
+
+  <root level="${TEST_LOG_LEVEL}">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
